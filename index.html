@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Kehinde Oyekunle — DevOps & SRE Engineer. Building scalable, secure, cloud-native infrastructure. Open to remote opportunities worldwide."/>
+<meta name="keywords" content="DevOps Engineer, SRE, AWS, Terraform, Kubernetes, Cloud Infrastructure, Cybersecurity, UK, Remote"/>
+<meta name="author" content="Kehinde Oyekunle"/>
+<meta property="og:title" content="BuildWithKayAI | Kehinde Oyekunle"/>
+<meta property="og:description" content="DevOps & SRE Engineer. Building secure, scalable cloud infrastructure."/>
+<meta property="og:url" content="https://www.buildwithkayai.com"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="BuildWithKayAI | Kehinde Oyekunle"/>
+<title>BuildWithKayAI | K. Oyekunle · DevOps · SRE · Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#02040a;--bg2:#040810;--card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.07);
+  --border-bright:rgba(0,245,255,0.3);--cyan:#00f5ff;--cyan2:#00c8ff;--green:#00ff88;
+  --purple:#8b5cf6;--pink:#ff2d9b;--gold:#ffd700;--text:#f0f4f8;--muted:rgba(240,244,248,0.4);
+  --font-display:"Cabinet Grotesk",sans-serif;--font-mono:"JetBrains Mono",monospace;--font-head:"Syne",sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);overflow-x:hidden;padding-bottom:48px;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--cyan),0 0 24px rgba(0,245,255,0.4);transition:transform 0.1s;}
+.cursor.click{transform:translate(-50%,-50%) scale(1.8);}
+#secCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.35;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:0 60px;height:70px;display:flex;justify-content:space-between;align-items:center;}
+nav::before{content:"";position:absolute;inset:0;background:rgba(2,4,10,0.8);backdrop-filter:blur(30px);z-index:-1;border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;flex-direction:column;line-height:1;cursor:pointer;}
+.nav-logo-name{font-family:var(--font-head);font-size:1rem;font-weight:800;color:var(--cyan);letter-spacing:1px;}
+.nav-logo-sub{font-family:var(--font-mono);font-size:0.55rem;color:var(--muted);letter-spacing:3px;margin-top:2px;}
+.nav-tabs{display:flex;gap:0;list-style:none;}
+.nav-tab{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1.5px;color:var(--muted);cursor:pointer;padding:10px 18px;transition:color 0.3s;position:relative;border:none;background:none;}
+.nav-tab::after{content:"";position:absolute;bottom:-1px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;}
+.nav-tab:hover{color:var(--cyan);}
+.nav-tab.active{color:var(--cyan);}
+.nav-tab.active::after{width:100%;}
+.nav-cta{background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:9px 22px;font-family:var(--font-mono);font-size:0.75rem;cursor:pointer;transition:all 0.3s;letter-spacing:1px;position:relative;overflow:hidden;}
+.nav-cta::before{content:"";position:absolute;inset:0;background:var(--cyan);transform:translateX(-101%);transition:transform 0.3s;}
+.nav-cta:hover::before{transform:translateX(0);}
+.nav-cta span{position:relative;z-index:1;}
+.nav-cta:hover span{color:var(--bg);}
+
+/* TABS CONTENT */
+.tab-content{display:none;animation:tabIn 0.4s ease;}
+.tab-content.active{display:block;}
+@keyframes tabIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:100px 60px 40px;}
+.hero-bg-text{position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-size:22vw;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(0,245,255,0.035);line-height:1;pointer-events:none;user-select:none;letter-spacing:-10px;font-family:var(--font-head);}
+.hero-inner{max-width:820px;position:relative;z-index:1;}
+.hero-top-label{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);letter-spacing:3px;margin-bottom:28px;display:flex;align-items:center;gap:10px;}
+.hero-top-label::before{content:"";width:30px;height:1px;background:var(--cyan);}
+.hero-headline{font-family:var(--font-head);font-size:clamp(1.4rem,3.5vw,2.6rem);font-weight:700;color:var(--muted);line-height:1.3;margin-bottom:18px;letter-spacing:-0.5px;}
+.hero-headline em{font-style:normal;color:var(--text);}
+.hero-name{font-family:var(--font-head);font-size:clamp(3rem,6.5vw,6.5rem);font-weight:900;line-height:0.88;letter-spacing:-3px;margin-bottom:30px;}
+.hero-name .line1{display:block;color:var(--text);}
+.hero-name .line2{display:block;background:linear-gradient(135deg,var(--cyan) 0%,var(--purple) 50%,var(--pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-desc{color:var(--muted);font-size:1rem;line-height:1.8;max-width:560px;margin-bottom:50px;}
+.hero-desc em{color:var(--cyan);font-style:normal;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px;}
+.btn-p{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);padding:14px 34px;font-family:var(--font-mono);font-size:0.84rem;border:none;cursor:pointer;font-weight:600;letter-spacing:1px;transition:all 0.3s;position:relative;overflow:hidden;}
+.btn-p::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--green),var(--cyan));opacity:0;transition:opacity 0.3s;}
+.btn-p:hover::after{opacity:1;}
+.btn-p span{position:relative;z-index:1;}
+.btn-s{background:transparent;color:var(--text);padding:14px 34px;font-family:var(--font-mono);font-size:0.84rem;border:1px solid var(--border-bright);cursor:pointer;letter-spacing:1px;transition:all 0.3s;}
+.btn-s:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,0.04);}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;}
+.hs{display:flex;flex-direction:column;}
+.hs-n{font-size:2.8rem;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--font-head);}
+.hs-l{font-family:var(--font-mono);font-size:0.6rem;color:var(--muted);letter-spacing:2px;margin-top:4px;}
+/* Hide scroll on mobile */
+.hero-scroll{position:absolute;bottom:30px;right:60px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.hero-scroll span{font-family:var(--font-mono);font-size:0.6rem;color:var(--muted);letter-spacing:3px;writing-mode:vertical-rl;}
+.scroll-bar{width:1px;height:60px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:sb 2s ease infinite;}
+@keyframes sb{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* TERMINAL TEASER CARDS — STAGGERED */
+.teasers{position:relative;z-index:1;padding:0 60px 80px;}
+.teasers-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:4px;color:var(--cyan);margin-bottom:40px;opacity:0.6;}
+.teasers-grid{display:flex;flex-direction:column;gap:18px;}
+.teaser-card{background:var(--bg2);padding:32px 36px;position:relative;cursor:pointer;transition:all 0.3s;width:62%;border:1px solid var(--border);}
+.teaser-card:nth-child(even){align-self:flex-end;}
+.teaser-card:nth-child(odd){align-self:flex-start;}
+.teaser-card:hover{background:rgba(0,245,255,0.025);transform:translateX(6px);}
+.teaser-card:nth-child(even):hover{transform:translateX(-6px);}
+/* Diagonal bracket corners — top-left + bottom-right ONLY */
+.teaser-card::before{content:"";position:absolute;top:-1px;left:-1px;width:16px;height:16px;border-top:1.5px solid var(--cyan);border-left:1.5px solid var(--cyan);}
+.teaser-card::after{content:"";position:absolute;bottom:-1px;right:-1px;width:16px;height:16px;border-bottom:1.5px solid var(--cyan);border-right:1.5px solid var(--cyan);}
+.teaser-card.g::before,.teaser-card.g::after{border-color:var(--green);}
+.teaser-card.p::before,.teaser-card.p::after{border-color:var(--purple);}
+.teaser-card.o::before,.teaser-card.o::after{border-color:#ff6b35;}
+.teaser-card.gold::before,.teaser-card.gold::after{border-color:var(--gold);}
+.teaser-card.pink::before,.teaser-card.pink::after{border-color:var(--pink);}
+.tc-num{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:2px;color:var(--cyan);margin-bottom:8px;}
+.teaser-card.g .tc-num{color:var(--green);}
+.teaser-card.p .tc-num{color:#a78bfa;}
+.teaser-card.o .tc-num{color:#ff8c6b;}
+.teaser-card.gold .tc-num{color:var(--gold);}
+.teaser-card.pink .tc-num{color:var(--pink);}
+.tc-title{font-family:var(--font-mono);font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:10px;}
+.tc-lines{font-family:var(--font-mono);font-size:0.73rem;color:var(--muted);line-height:1.9;margin-bottom:16px;}
+.tc-lines span{color:var(--muted);opacity:0.5;}
+.tc-readmore{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:2px;color:var(--green);display:inline-flex;align-items:center;gap:6px;transition:gap 0.2s;}
+.teaser-card:hover .tc-readmore{gap:10px;}
+
+/* SECTIONS */
+.section{position:relative;z-index:1;padding:100px 60px;}
+.s-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:4px;color:var(--cyan);margin-bottom:12px;opacity:0.7;}
+.s-h{font-family:var(--font-head);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-2px;line-height:0.95;margin-bottom:60px;}
+.s-h em{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ABOUT */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-p{color:var(--muted);font-size:1rem;line-height:1.9;margin-bottom:18px;}
+.about-p strong{color:var(--text);}
+.about-hl{background:rgba(0,245,255,0.04);border-left:2px solid var(--cyan);padding:16px 20px;margin:24px 0;font-family:var(--font-mono);font-size:0.8rem;color:var(--cyan);line-height:1.7;}
+.j-card{background:var(--card);border:1px solid var(--border);overflow:hidden;position:sticky;top:90px;}
+.j-hdr{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.j-dots{display:flex;gap:5px;}
+.jd{width:9px;height:9px;border-radius:50%;}
+.jd1{background:#ff5f57;}.jd2{background:#febc2e;}.jd3{background:#28c840;}
+.j-htitle{font-family:var(--font-mono);font-size:0.63rem;color:var(--muted);letter-spacing:2px;margin-left:4px;}
+.j-body{padding:24px;}
+.j-step{display:flex;gap:14px;margin-bottom:22px;position:relative;}
+.j-step:not(:last-child)::after{content:"";position:absolute;left:4px;top:14px;bottom:-14px;width:1px;background:var(--border);}
+.j-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.jdc{background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+.jdg{background:var(--green);box-shadow:0 0 8px var(--green);}
+.jdp{background:var(--purple);box-shadow:0 0 8px var(--purple);}
+.jdo{background:#ff6b35;box-shadow:0 0 8px #ff6b35;}
+.jdgold{background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.j-info h4{font-size:0.84rem;font-weight:700;margin-bottom:2px;}
+.j-info p{font-family:var(--font-mono);font-size:0.66rem;color:var(--muted);}
+.j-tag{display:inline-block;border:1px solid rgba(0,245,255,0.2);color:var(--cyan);padding:2px 7px;font-size:0.6rem;margin-top:5px;font-family:var(--font-mono);background:rgba(0,245,255,0.05);}
+
+/* METRICS */
+.metrics-band{position:relative;z-index:1;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.m-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.m-card{padding:50px 20px;text-align:center;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background 0.4s;}
+.m-card:last-child{border-right:none;}
+.m-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,245,255,0.05),transparent 60%);opacity:0;transition:opacity 0.4s;}
+.m-card:hover::before{opacity:1;}
+.m-num-wrap{display:flex;align-items:baseline;justify-content:center;gap:2px;}
+.m-num{font-size:3.5rem;font-weight:900;font-family:var(--font-head);line-height:1;}
+.m-num.mc{background:linear-gradient(135deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.m-num.mg{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.m-suf{font-size:1.8rem;font-weight:900;font-family:var(--font-head);}
+.m-suf.mc{background:linear-gradient(135deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.m-suf.mg{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.m-label{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:2px;color:var(--muted);margin-top:10px;}
+.m-desc{font-size:0.73rem;color:rgba(240,244,248,0.25);margin-top:5px;}
+
+/* SKILLS */
+.sk-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.sk-blk{background:var(--bg);padding:30px;transition:background 0.3s;position:relative;overflow:hidden;}
+.sk-blk::after{content:"";position:absolute;bottom:0;left:0;width:0;height:1px;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:width 0.5s;}
+.sk-blk:hover::after{width:100%;}
+.sk-blk:hover{background:rgba(0,245,255,0.015);}
+.sk-ico{font-size:1.5rem;margin-bottom:12px;}
+.sk-nm{font-size:0.66rem;letter-spacing:3px;color:var(--muted);font-family:var(--font-mono);margin-bottom:12px;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.sk-t{padding:4px 10px;font-size:0.66rem;font-family:var(--font-mono);border:1px solid;transition:all 0.2s;}
+.sk-t.c{border-color:rgba(0,245,255,0.2);color:var(--cyan);background:rgba(0,245,255,0.03);}
+.sk-t.g{border-color:rgba(0,255,136,0.2);color:var(--green);background:rgba(0,255,136,0.03);}
+.sk-t.p{border-color:rgba(139,92,246,0.3);color:#a78bfa;background:rgba(139,92,246,0.03);}
+.sk-t.o{border-color:rgba(255,107,53,0.3);color:#ff8c6b;background:rgba(255,107,53,0.03);}
+.sk-t:hover{transform:translateY(-2px);}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.proj-card{background:var(--bg);padding:42px;position:relative;overflow:hidden;transition:background 0.4s;}
+.proj-card:hover{background:rgba(0,245,255,0.015);}
+.proj-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:translateX(-100%);transition:transform 0.6s;}
+.proj-card:hover::before{transform:translateX(100%);}
+.proj-num{font-size:4rem;font-weight:900;color:rgba(0,245,255,0.05);line-height:1;margin-bottom:16px;font-family:var(--font-head);}
+.proj-badge{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.pbdot{width:5px;height:5px;border-radius:50%;}
+.pbdot.live{background:var(--green);box-shadow:0 0 6px var(--green);}
+.pbdot.c{background:var(--cyan);}
+.proj-title{font-family:var(--font-head);font-size:1.4rem;font-weight:800;letter-spacing:-0.3px;margin-bottom:10px;line-height:1.2;}
+.proj-desc{color:var(--muted);font-size:0.87rem;line-height:1.75;margin-bottom:20px;}
+.proj-kpis{display:flex;gap:20px;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px;}
+.kpi-v{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--font-head);}
+.kpi-l{font-family:var(--font-mono);font-size:0.58rem;color:var(--muted);letter-spacing:1px;}
+.proj-stack{display:flex;flex-wrap:wrap;gap:5px;}
+.p-tag{font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:3px 8px;transition:all 0.3s;}
+.proj-card:hover .p-tag{border-color:rgba(0,245,255,0.15);color:rgba(0,245,255,0.7);}
+
+/* ARCH */
+.arch-wrap{background:var(--bg);border-top:1px solid var(--border);padding:50px 60px;}
+.arch-lbl{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:4px;color:var(--muted);margin-bottom:32px;}
+.arch-flow{display:grid;grid-template-columns:repeat(5,1fr);position:relative;}
+.arch-flow::before{content:"";position:absolute;top:50%;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.15),rgba(139,92,246,0.15),rgba(0,255,136,0.15),transparent);}
+.arch-col{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 6px;}
+.arch-cl{font-family:var(--font-mono);font-size:0.56rem;letter-spacing:2px;color:var(--muted);margin-bottom:8px;text-align:center;}
+.arch-box{width:100%;padding:8px 4px;text-align:center;font-family:var(--font-mono);font-size:0.63rem;border:1px solid;transition:all 0.3s;}
+.arch-box.ac{border-color:rgba(0,245,255,0.2);color:var(--cyan);background:rgba(0,245,255,0.03);}
+.arch-box.ag{border-color:rgba(0,255,136,0.2);color:var(--green);background:rgba(0,255,136,0.03);}
+.arch-box.ap{border-color:rgba(139,92,246,0.3);color:#a78bfa;background:rgba(139,92,246,0.03);}
+.arch-box.ao{border-color:rgba(255,107,53,0.3);color:#ff8c6b;background:rgba(255,107,53,0.03);}
+.arch-box:hover{transform:scale(1.05);}
+.arch-bgs{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.arch-bg{font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.arch-bg em{color:var(--green);font-style:normal;}
+
+/* CYBERSEC + AI */
+.cyb-section{position:relative;z-index:1;padding:100px 60px;background:var(--bg2);overflow:hidden;}
+.cyb-section::before{content:"";position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,0.08),transparent 70%);pointer-events:none;}
+.cyb-section::after{content:"";position:absolute;bottom:-200px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,245,255,0.05),transparent 70%);pointer-events:none;}
+.cyb-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;}
+.cyb-card{background:var(--card);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:all 0.4s;}
+.cyb-card:hover{border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.03);}
+.cyb-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--purple),var(--cyan));}
+.cyb-ico{font-size:1.8rem;margin-bottom:14px;}
+.cyb-title{font-family:var(--font-head);font-size:1.1rem;font-weight:800;margin-bottom:8px;}
+.cyb-desc{color:var(--muted);font-size:0.86rem;line-height:1.75;}
+.cyb-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px;}
+.cyb-tag{font-family:var(--font-mono);font-size:0.65rem;border:1px solid rgba(139,92,246,0.3);color:#a78bfa;padding:3px 8px;background:rgba(139,92,246,0.05);}
+.research-box{background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.2);padding:28px;margin-top:28px;position:relative;}
+.research-box::before{content:"RESEARCH FOCUS";position:absolute;top:-9px;left:20px;background:var(--bg2);padding:0 10px;font-family:var(--font-mono);font-size:0.58rem;color:var(--purple);letter-spacing:3px;}
+.research-box p{color:var(--muted);font-size:0.86rem;line-height:1.8;}
+.research-box p strong{color:var(--text);}
+
+/* TIMELINE */
+.tl-wrap{max-width:780px;}
+.tl-item{display:grid;grid-template-columns:110px 1fr;gap:35px;margin-bottom:50px;position:relative;}
+.tl-item::before{content:"";position:absolute;left:109px;top:8px;bottom:-40px;width:1px;background:var(--border);}
+.tl-item:last-child::before{display:none;}
+.tl-date{text-align:right;padding-top:3px;}
+.tl-dt{font-family:var(--font-mono);font-size:0.66rem;color:var(--muted);letter-spacing:1px;line-height:1.6;}
+.tl-dot-w{position:absolute;left:103px;top:4px;width:14px;height:14px;display:flex;align-items:center;justify-content:center;}
+.tl-dot{width:8px;height:8px;border-radius:50%;}
+.tdc{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+.tdg{background:var(--green);box-shadow:0 0 10px var(--green);}
+.tdp{background:var(--purple);box-shadow:0 0 10px var(--purple);}
+.tdo{background:#ff6b35;box-shadow:0 0 10px #ff6b35;}
+.tdgold{background:var(--gold);box-shadow:0 0 10px var(--gold);}
+.tl-co{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:2px;color:var(--cyan);margin-bottom:4px;}
+.tl-role{font-family:var(--font-head);font-size:1.1rem;font-weight:800;margin-bottom:7px;}
+.tl-desc{color:var(--muted);font-size:0.85rem;line-height:1.75;}
+.tl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.tl-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid var(--border);color:var(--muted);padding:2px 7px;}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.cert-card{background:var(--bg);padding:26px;display:flex;gap:14px;align-items:flex-start;transition:background 0.3s;position:relative;overflow:hidden;}
+.cert-card:hover{background:rgba(0,245,255,0.015);}
+.cert-card::after{content:"";position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.5s;}
+.cert-card:hover::after{width:100%;}
+.cert-ico{font-size:1.6rem;flex-shrink:0;}
+.cert-nm{font-size:0.85rem;font-weight:700;margin-bottom:3px;line-height:1.3;}
+.cert-org{font-family:var(--font-mono);font-size:0.64rem;color:var(--muted);}
+.cert-yr{font-family:var(--font-mono);font-size:0.64rem;color:var(--cyan);margin-top:4px;}
+
+/* LEARNING */
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:2px;}
+.learn-card{background:var(--bg);padding:26px 20px;position:relative;overflow:hidden;}
+.learn-bar{position:absolute;bottom:0;left:0;height:2px;transition:width 1.5s ease;}
+.learn-ico{font-size:1.4rem;margin-bottom:10px;}
+.learn-nm{font-size:0.85rem;font-weight:700;margin-bottom:4px;}
+.learn-pct{font-family:var(--font-mono);font-size:0.66rem;color:var(--muted);}
+.learn-pct em{font-style:normal;color:var(--cyan);}
+
+/* LOGS */
+.logs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.log-card{background:var(--bg);overflow:hidden;transition:background 0.3s;position:relative;}
+.log-card:hover{background:rgba(0,245,255,0.01);}
+.log-img{width:100%;height:200px;object-fit:cover;display:block;border-bottom:1px solid var(--border);}
+.log-img-placeholder{width:100%;height:200px;background:linear-gradient(135deg,rgba(0,245,255,0.05),rgba(139,92,246,0.05));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);letter-spacing:2px;}
+.log-body{padding:28px;}
+.log-meta{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.log-date{font-family:var(--font-mono);font-size:0.63rem;color:var(--muted);letter-spacing:1px;}
+.log-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid rgba(0,245,255,0.2);color:var(--cyan);padding:2px 8px;background:rgba(0,245,255,0.04);}
+.log-title{font-family:var(--font-head);font-size:1.1rem;font-weight:800;margin-bottom:10px;line-height:1.3;}
+.log-excerpt{color:var(--muted);font-size:0.84rem;line-height:1.7;margin-bottom:18px;}
+.log-link{font-family:var(--font-mono);font-size:0.68rem;color:var(--green);letter-spacing:1px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:gap 0.2s;}
+.log-link:hover{gap:10px;}
+.log-add{border:1px dashed rgba(0,245,255,0.15);background:transparent;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:300px;}
+.log-add-ico{font-size:2rem;margin-bottom:12px;opacity:0.3;}
+.log-add-txt{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:2px;line-height:1.8;}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.c-items{display:flex;flex-direction:column;gap:2px;background:var(--border);}
+.c-item{background:var(--bg);padding:20px 26px;display:flex;align-items:center;gap:14px;transition:background 0.3s;}
+.c-item:hover{background:rgba(0,245,255,0.015);}
+.c-ico{font-size:1.2rem;width:30px;text-align:center;}
+.c-lbl{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:2px;color:var(--muted);margin-bottom:3px;}
+.c-val{font-size:0.87rem;}
+.c-val a{color:var(--cyan);text-decoration:none;}
+.open-to{background:var(--card);border:1px solid var(--border);padding:35px;position:relative;overflow:hidden;}
+.open-to::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--green));}
+.ot-lbl{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:3px;color:var(--muted);margin-bottom:20px;}
+.ot-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:0.87rem;}
+.ot-chk{color:var(--green);font-size:0.78rem;}
+.dl-btn{width:100%;background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);border:none;padding:15px;font-family:var(--font-mono);font-size:0.8rem;cursor:pointer;font-weight:700;letter-spacing:2px;margin-top:25px;transition:all 0.3s;position:relative;overflow:hidden;}
+.dl-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--green),var(--cyan));opacity:0;transition:opacity 0.3s;}
+.dl-btn:hover::after{opacity:1;}
+.dl-btn span{position:relative;z-index:1;}
+
+/* FOOTER */
+footer{position:relative;z-index:2;padding:40px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg);}
+.f-left{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);}
+.f-left strong{color:var(--cyan);}
+.f-right{font-family:var(--font-mono);font-size:0.67rem;color:var(--muted);}
+
+/* FIXED BOTTOM MARQUEE */
+.marquee-fixed{position:fixed;bottom:0;left:0;right:0;z-index:500;border-top:1px solid var(--border);overflow:hidden;background:rgba(2,4,10,0.92);backdrop-filter:blur(20px);padding:10px 0;}
+.marquee-track{display:flex;gap:55px;animation:mq 22s linear infinite;white-space:nowrap;}
+.mq-item{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.mq-item span{color:var(--cyan);}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* AI COPILOT */
+@keyframes aip{0%,100%{box-shadow:0 0 0 0 rgba(0,245,255,0.4);}50%{box-shadow:0 0 0 10px rgba(0,245,255,0);}}
+@keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+@keyframes panelIn{from{opacity:0;transform:translateY(30px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes tb{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+@keyframes pulse2{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.ai-fab{position:fixed;bottom:70px;right:35px;z-index:1500;}
+.ai-circle-btn{width:58px;height:58px;border-radius:50%;background:rgba(0,245,255,0.04);border:1.5px solid rgba(0,245,255,0.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.75rem;font-weight:600;color:var(--cyan);letter-spacing:1px;transition:all 0.3s;position:relative;box-shadow:0 0 20px rgba(0,245,255,0.15);}
+.ai-circle-btn::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(0,245,255,0.15);animation:aip 2.5s infinite;}
+.ai-circle-btn:hover{background:rgba(0,245,255,0.1);box-shadow:0 0 35px rgba(0,245,255,0.3);}
+.ai-overlay{position:fixed;inset:0;background:rgba(2,4,10,0.9);backdrop-filter:blur(14px);z-index:2000;display:none;align-items:center;justify-content:center;animation:overlayIn 0.2s ease;}
+.ai-overlay.open{display:flex;}
+.ai-panel{width:min(560px,92vw);height:min(660px,88vh);background:#050c18;border:1px solid rgba(0,245,255,0.18);display:flex;flex-direction:column;position:relative;animation:panelIn 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.ai-panel::before,.ai-panel::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--cyan);border-style:solid;}
+.ai-panel::before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px;}
+.ai-panel::after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0;}
+.ai-br1,.ai-br2{position:absolute;width:16px;height:16px;border-color:var(--cyan);border-style:solid;}
+.ai-br1{top:-1px;right:-1px;border-width:1.5px 1.5px 0 0;}
+.ai-br2{bottom:-1px;left:-1px;border-width:0 0 1.5px 1.5px;}
+.ai-panel-hdr{padding:20px 24px 14px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:flex-start;justify-content:space-between;}
+.ai-hdr-title{font-family:var(--font-mono);font-size:0.78rem;font-weight:600;color:var(--cyan);letter-spacing:3px;margin-bottom:5px;}
+.ai-hdr-sub{font-family:var(--font-mono);font-size:0.62rem;color:var(--muted);letter-spacing:2px;display:flex;align-items:center;gap:7px;}
+.ai-sdot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse2 2s infinite;box-shadow:0 0 6px var(--green);}
+.ai-close{background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:1px;transition:color 0.2s;}
+.ai-close:hover{color:var(--cyan);}
+.ai-msgs{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:12px;}
+.ai-msgs::-webkit-scrollbar{width:2px;}
+.ai-msgs::-webkit-scrollbar-thumb{background:rgba(0,245,255,0.15);}
+.ai-prompt-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);padding:28px 20px;text-align:center;margin:8px 0;}
+.ai-prompt-lbl{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:3px;color:var(--cyan);margin-bottom:12px;}
+.ai-prompt-txt{color:rgba(240,244,248,0.45);font-size:0.88rem;line-height:1.75;}
+.aw-msg{display:flex;gap:8px;animation:msgIn 0.3s ease;}
+.aw-msg.user{flex-direction:row-reverse;}
+.aw-av{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.58rem;font-weight:700;border-radius:50%;}
+.aw-av.ai{background:linear-gradient(135deg,var(--cyan),var(--purple));color:var(--bg);}
+.aw-av.u{border:1px solid rgba(0,255,136,0.3);color:var(--green);background:rgba(0,255,136,0.06);}
+.aw-bubble{max-width:82%;padding:10px 13px;font-size:0.82rem;line-height:1.65;}
+.aw-bubble.ai{background:rgba(0,245,255,0.03);border:1px solid rgba(0,245,255,0.08);color:var(--text);}
+.aw-bubble.user{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);color:var(--text);}
+.aw-qq{padding:8px 24px;display:flex;flex-wrap:wrap;gap:5px;border-top:1px solid rgba(255,255,255,0.04);}
+.aw-q{background:none;border:1px solid rgba(0,245,255,0.14);color:rgba(0,245,255,0.55);padding:4px 10px;font-family:var(--font-mono);font-size:0.62rem;cursor:pointer;transition:all 0.2s;}
+.aw-q:hover{border-color:var(--cyan);color:var(--cyan);}
+.ai-inp-row{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;}
+.ai-gt{font-family:var(--font-mono);font-size:0.88rem;color:var(--cyan);margin-right:10px;opacity:0.6;}
+.aw-inp{flex:1;background:transparent;border:none;color:var(--text);font-family:var(--font-mono);font-size:0.82rem;outline:none;}
+.aw-inp::placeholder{color:rgba(240,244,248,0.18);}
+.ai-send{width:36px;height:36px;border-radius:50%;border:1px solid rgba(0,245,255,0.4);background:transparent;color:var(--cyan);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.3s;flex-shrink:0;}
+.ai-send:hover{background:var(--cyan);color:var(--bg);}
+.typ{display:flex;gap:4px;align-items:center;}
+.typ span{width:5px;height:5px;background:var(--cyan);border-radius:50%;animation:tb 1.4s infinite;}
+.typ span:nth-child(2){animation-delay:.2s;}
+.typ span:nth-child(3){animation-delay:.4s;}
+
+/* FADE */
+.fi{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fi.vis{opacity:1;transform:translateY(0);}
+.fi.d1{transition-delay:.1s;}.fi.d2{transition-delay:.2s;}.fi.d3{transition-delay:.3s;}
+
+/* MOBILE NAV */
+.mobile-nav-btn{display:none;background:none;border:none;color:var(--cyan);cursor:pointer;font-size:1.2rem;padding:4px;}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(2,4,10,0.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu-tab{font-family:var(--font-mono);font-size:1.1rem;letter-spacing:3px;color:var(--muted);cursor:pointer;padding:10px 20px;border:none;background:none;transition:color 0.3s;}
+.mobile-menu-tab:hover,.mobile-menu-tab.active{color:var(--cyan);}
+.mobile-menu-close{position:absolute;top:25px;right:25px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 18px;}
+  .nav-tabs{display:none;}
+  .mobile-nav-btn{display:block;}
+  .hero,.section,.cyb-section,.arch-wrap,.teasers{padding-left:18px;padding-right:18px;}
+  .about-wrap,.proj-grid,.contact-wrap,.cyb-grid{grid-template-columns:1fr;}
+  .sk-wrap,.certs-grid{grid-template-columns:1fr 1fr;}
+  .m-grid{grid-template-columns:1fr 1fr;}
+  .learn-grid{grid-template-columns:1fr 1fr;}
+  .logs-grid{grid-template-columns:1fr;}
+  .teaser-card{width:92%!important;}
+  .teasers-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:18px;}
+  .hs-n{font-size:2rem;}
+  .hero-bg-text{display:none;}
+  .hero-name{letter-spacing:-1px;}
+  .hero-scroll{display:none;}
+  footer{flex-direction:column;gap:10px;padding:25px 18px;}
+  .arch-flow{grid-template-columns:repeat(3,1fr);}
+  .tl-item{grid-template-columns:80px 1fr;gap:16px;}
+  .m-num{font-size:2.8rem;}
+  .m-suf{font-size:1.5rem;}
+  .m-card{padding:40px 15px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<canvas id="secCanvas"></canvas>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <button class="mobile-menu-tab" onclick="switchTab('home');closeMobileMenu()">HOME</button>
+  <button class="mobile-menu-tab" onclick="switchTab('about');closeMobileMenu()">ABOUT</button>
+  <button class="mobile-menu-tab" onclick="switchTab('projects');closeMobileMenu()">PROJECTS</button>
+  <button class="mobile-menu-tab" onclick="switchTab('cybersec');closeMobileMenu()">CYBER · AI</button>
+  <button class="mobile-menu-tab" onclick="switchTab('experience');closeMobileMenu()">EXPERIENCE</button>
+  <button class="mobile-menu-tab" onclick="switchTab('certifications');closeMobileMenu()">CERTS</button>
+  <button class="mobile-menu-tab" onclick="switchTab('logs');closeMobileMenu()">LOGS</button>
+  <button class="mobile-menu-tab" onclick="switchTab('contact');closeMobileMenu()">CONTACT</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="switchTab('home')">
+    <div class="nav-logo-name">BuildWithKayAI</div>
+    <div class="nav-logo-sub">BUILDWITHKAYAI.COM</div>
+  </div>
+  <ul class="nav-tabs">
+    <li><button class="nav-tab active" onclick="switchTab('home')">HOME</button></li>
+    <li><button class="nav-tab" onclick="switchTab('about')">ABOUT</button></li>
+    <li><button class="nav-tab" onclick="switchTab('projects')">PROJECTS</button></li>
+    <li><button class="nav-tab" onclick="switchTab('cybersec')">CYBER·AI</button></li>
+    <li><button class="nav-tab" onclick="switchTab('experience')">EXPERIENCE</button></li>
+    <li><button class="nav-tab" onclick="switchTab('certifications')">CERTS</button></li>
+    <li><button class="nav-tab" onclick="switchTab('logs')">LOGS</button></li>
+    <li><button class="nav-tab" onclick="switchTab('contact')">CONTACT</button></li>
+  </ul>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <button class="mobile-nav-btn" onclick="openMobileMenu()">&#9776;</button>
+    <button class="nav-cta" onclick="downloadCV()"><span>↓ CV</span></button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HOME TAB ═══════════════════ -->
+<div class="tab-content active" id="tab-home">
+  <section class="hero">
+    <div class="hero-bg-text">KO</div>
+    <div class="hero-inner">
+      <div class="hero-top-label fi">DEVOPS · SRE · CYBERSECURITY · UK</div>
+      <div class="hero-headline fi d1">The engineer who builds systems<br/><em>that don't break at 3am.</em></div>
+      <h1 class="hero-name fi d2">
+        <span class="line1">KEHINDE</span>
+        <span class="line2">OYEKUNLE</span>
+      </h1>
+      <p class="hero-desc fi d2"><em>3+ years</em> designing, deploying, and securing cloud infrastructure in regulated environments. I turn complex infrastructure problems into elegant, automated, <em>security-first</em> solutions.</p>
+      <div class="hero-btns fi d3">
+        <button class="btn-p" onclick="switchTab('projects')"><span>VIEW MY WORK →</span></button>
+        <button class="btn-s" onclick="switchTab('contact')">GET IN TOUCH</button>
+      </div>
+      <div class="hero-stats fi d3">
+        <div class="hs"><div class="hs-n" data-target="3">0</div><div class="hs-l">YRS EXPERIENCE</div></div>
+        <div class="hs"><div class="hs-n" data-target="90">0</div><div class="hs-l">% TIME SAVED</div></div>
+        <div class="hs"><div class="hs-n" data-target="98">0</div><div class="hs-l">% ADOPTION</div></div>
+        <div class="hs"><div class="hs-n" data-target="6">0</div><div class="hs-l">TEAM LED</div></div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-bar"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- TERMINAL TEASER CARDS -->
+  <div class="teasers">
+    <div class="teasers-label">// EXPLORE — CLICK ANY SECTION</div>
+    <div class="teasers-grid">
+      <div class="teaser-card" onclick="switchTab('about')">
+        <div class="tc-num">01 / ABOUT.exe</div>
+        <div class="tc-title">The Engineer Behind the Code</div>
+        <div class="tc-lines">
+          <span>&gt;</span> Started as Youth Corper. Left as DevOps Engineer.<br/>
+          <span>&gt;</span> 3+ years · AWS · UK · MSc Cybersecurity
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+      <div class="teaser-card g" onclick="switchTab('projects')">
+        <div class="tc-num">02 / PROJECTS.exe</div>
+        <div class="tc-title">Built From Scratch. Deployed to Prod.</div>
+        <div class="tc-lines">
+          <span>&gt;</span> VMS · Secure File Share · AWS Automation<br/>
+          <span>&gt;</span> 90% time saved · 98% adoption · ISO compliant
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+      <div class="teaser-card p" onclick="switchTab('cybersec')">
+        <div class="tc-num">03 / CYBER_AI.exe</div>
+        <div class="tc-title">Where Security Meets Artificial Intelligence</div>
+        <div class="tc-lines">
+          <span>&gt;</span> MSc Research · AI-powered threat detection<br/>
+          <span>&gt;</span> DevSecOps · Anomaly detection · Cloud security
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+      <div class="teaser-card o" onclick="switchTab('experience')">
+        <div class="tc-num">04 / EXPERIENCE.exe</div>
+        <div class="tc-title">Career Timeline & Work History</div>
+        <div class="tc-lines">
+          <span>&gt;</span> Fringe · Cloud Exchange · Coils Tech · OOU<br/>
+          <span>&gt;</span> Team lead · ISO audits · Cloud migrations
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+      <div class="teaser-card gold" onclick="switchTab('certifications')">
+        <div class="tc-num">05 / CERTIFICATIONS.exe</div>
+        <div class="tc-title">Credentials, Certs & Education</div>
+        <div class="tc-lines">
+          <span>&gt;</span> ISO 27001 · DCCA · NSE 1&2 · CNSS<br/>
+          <span>&gt;</span> MSc Cybersecurity · B.Eng Engineering
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+      <div class="teaser-card pink" onclick="switchTab('logs')">
+        <div class="tc-num">06 / LOGS.exe</div>
+        <div class="tc-title">Thoughts, Posts & Field Notes</div>
+        <div class="tc-lines">
+          <span>&gt;</span> Career journey · Project breakdowns<br/>
+          <span>&gt;</span> DevOps insights · Cybersecurity + AI
+        </div>
+        <div class="tc-readmore">[ READ MORE → ]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ABOUT TAB ═══════════════════ -->
+<div class="tab-content" id="tab-about">
+  <section class="section">
+    <div class="s-label fi">// ABOUT ME</div>
+    <h2 class="s-h fi">The Engineer<br/>Behind the <em>Code</em></h2>
+    <div class="about-wrap">
+      <div class="fi">
+        <p class="about-p">I'm <strong>Kehinde Afolarin Oyekunle</strong> — a DevOps & Site Reliability Engineer who started as a <strong>Youth Corper</strong> walking into a Data Centre in Lagos with nothing but curiosity and a hunger to learn.</p>
+        <p class="about-p">3+ years later, I had built production systems from scratch, passed ISO audits, automated infrastructure, deployed applications used by entire organisations daily, and led a team of 6 engineers.</p>
+        <div class="about-hl">"Security and infrastructure are not two separate conversations. Every deployment decision is a security decision."</div>
+        <p class="about-p">Now based in <strong>Middlesbrough, UK</strong>, I'm pursuing an <strong>MSc in Cybersecurity</strong> at Teesside University — exploring the intersection of <strong>AI and Cybersecurity</strong> as my research focus.</p>
+        <p class="about-p">I'm actively seeking <strong>remote DevOps, SRE, or Cloud Infrastructure</strong> opportunities with global companies — contractor, freelance, or full-time.</p>
+      </div>
+      <div class="fi d2">
+        <div class="j-card">
+          <div class="j-hdr">
+            <div class="j-dots"><div class="jd jd1"></div><div class="jd jd2"></div><div class="jd jd3"></div></div>
+            <div class="j-htitle">CAREER_JOURNEY.LOG</div>
+          </div>
+          <div class="j-body">
+            <div class="j-step"><div class="j-dot jdo"></div><div class="j-info"><h4>Network Engineer Intern</h4><p>OOU ICT · 2020–2022</p><span class="j-tag">FOUNDATION</span></div></div>
+            <div class="j-step"><div class="j-dot jdp"></div><div class="j-info"><h4>DevOps Volunteer · USA</h4><p>Coils Tech · 2022</p><span class="j-tag">GLOBAL EXPOSURE</span></div></div>
+            <div class="j-step"><div class="j-dot jdc"></div><div class="j-info"><h4>Corper → DevOps Engineer</h4><p>Cloud Exchange · 2022–2025</p><span class="j-tag">3 YEAR GROWTH</span></div></div>
+            <div class="j-step"><div class="j-dot jdg"></div><div class="j-info"><h4>DevOps & SRE Engineer</h4><p>Fringe Infrastructure · 2025–2026</p><span class="j-tag">VMS · SECURE FILE SHARE</span></div></div>
+            <div class="j-step"><div class="j-dot jdgold"></div><div class="j-info"><h4>MSc Cybersecurity · UK</h4><p>Teesside University · May 2026</p><span class="j-tag" style="border-color:rgba(255,215,0,0.3);color:var(--gold);">ENROLLED · AI RESEARCH</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- METRICS -->
+  <div class="metrics-band">
+    <div class="m-grid">
+      <div class="m-card fi">
+        <div class="m-num-wrap"><div class="m-num mc"><span class="counter" data-target="90">0</span></div><div class="m-suf mc">%</div></div>
+        <div class="m-label">PROCESSING TIME CUT</div><div class="m-desc">VMS automated manual approval</div>
+      </div>
+      <div class="m-card fi d1">
+        <div class="m-num-wrap"><div class="m-num mg"><span class="counter" data-target="98">0</span></div><div class="m-suf mg">%</div></div>
+        <div class="m-label">USER ADOPTION RATE</div><div class="m-desc">Organisation-wide acceptance</div>
+      </div>
+      <div class="m-card fi d2">
+        <div class="m-num-wrap"><div class="m-num mc"><span class="counter" data-target="99">0</span></div><div class="m-suf mc">%</div></div>
+        <div class="m-label">EFFICIENCY GAIN</div><div class="m-desc">Workflow automation result</div>
+      </div>
+      <div class="m-card fi d3">
+        <div class="m-num-wrap"><div class="m-num mg"><span class="counter" data-target="50">0</span></div><div class="m-suf mg">%</div></div>
+        <div class="m-label">FASTER PROVISIONING</div><div class="m-desc">Terraform IaC improvement</div>
+      </div>
+    </div>
+  </div>
+  <!-- SKILLS -->
+  <section class="section" style="padding-top:60px;">
+    <div class="s-label fi">// TECHNICAL ARSENAL</div>
+    <h2 class="s-h fi">Skills & <em>Stack</em></h2>
+    <div class="sk-wrap fi">
+      <div class="sk-blk"><div class="sk-ico">⚡</div><div class="sk-nm">DEVOPS & AUTOMATION</div><div class="sk-tags"><span class="sk-t c">Terraform</span><span class="sk-t c">Jenkins</span><span class="sk-t c">GitHub Actions</span><span class="sk-t c">Ansible</span><span class="sk-t c">CI/CD</span><span class="sk-t c">CloudFormation</span></div></div>
+      <div class="sk-blk"><div class="sk-ico">☁️</div><div class="sk-nm">CLOUD PLATFORMS</div><div class="sk-tags"><span class="sk-t g">AWS ECS/Fargate</span><span class="sk-t g">EC2</span><span class="sk-t g">S3/SNS</span><span class="sk-t g">IAM/VPC</span><span class="sk-t g">Azure</span><span class="sk-t g">CloudWatch</span></div></div>
+      <div class="sk-blk"><div class="sk-ico">🐳</div><div class="sk-nm">CONTAINERS & ORCHESTRATION</div><div class="sk-tags"><span class="sk-t p">Docker</span><span class="sk-t p">Kubernetes</span><span class="sk-t p">EKS</span><span class="sk-t p">Microservices</span></div></div>
+      <div class="sk-blk"><div class="sk-ico">🔐</div><div class="sk-nm">SECURITY & COMPLIANCE</div><div class="sk-tags"><span class="sk-t o">ISO 27001</span><span class="sk-t o">ISO 22301</span><span class="sk-t o">PCI DSS</span><span class="sk-t o">SAST/DAST</span><span class="sk-t o">NACLs</span><span class="sk-t o">Encryption</span></div></div>
+      <div class="sk-blk"><div class="sk-ico">📊</div><div class="sk-nm">MONITORING & OBSERVABILITY</div><div class="sk-tags"><span class="sk-t c">Prometheus</span><span class="sk-t c">Grafana</span><span class="sk-t c">CloudWatch</span><span class="sk-t c">Alerting</span></div></div>
+      <div class="sk-blk"><div class="sk-ico">🐍</div><div class="sk-nm">SCRIPTING & DEVELOPMENT</div><div class="sk-tags"><span class="sk-t g">Python</span><span class="sk-t g">Boto3</span><span class="sk-t g">Bash</span><span class="sk-t g">YAML/JSON</span><span class="sk-t g">SQL</span><span class="sk-t g">SHELL</span></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ PROJECTS TAB ═══════════════════ -->
+<div class="tab-content" id="tab-projects">
+  <section class="section">
+    <div class="s-label fi">// WHAT I'VE BUILT</div>
+    <h2 class="s-h fi">Featured <em>Projects</em></h2>
+    <div class="proj-grid fi">
+      <div class="proj-card">
+        <div class="proj-num">01</div>
+        <div class="proj-badge"><div class="pbdot live"></div>LIVE IN PRODUCTION · AWS</div>
+        <h3 class="proj-title">Visitor Management System</h3>
+        <p class="proj-desc">End-to-end automated web application built from concept to production. Eliminated all paper-based manual processes. Automated registration, approval workflows, and notifications. Full Disaster Recovery strategy included.</p>
+        <div class="proj-kpis">
+          <div><div class="kpi-v">90%</div><div class="kpi-l">TIME SAVED</div></div>
+          <div><div class="kpi-v">99%</div><div class="kpi-l">EFFICIENCY</div></div>
+          <div><div class="kpi-v">98%</div><div class="kpi-l">ADOPTION</div></div>
+        </div>
+        <div class="proj-stack"><span class="p-tag">AWS ECS Fargate</span><span class="p-tag">Terraform</span><span class="p-tag">Python/Boto3</span><span class="p-tag">Grafana</span><span class="p-tag">Prometheus</span><span class="p-tag">SNS</span><span class="p-tag">ISO 27001</span><span class="p-tag">PCI DSS</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">02</div>
+        <div class="proj-badge"><div class="pbdot live"></div>LIVE · COMPLIANCE-FIRST DESIGN</div>
+        <h3 class="proj-title">Secure File Share Platform</h3>
+        <p class="proj-desc">Internal secure file sharing system built within a regulated data centre. Designed with security at its core — every file transfer meets ISO and PCI DSS standards with zero tolerance for compliance gaps.</p>
+        <div class="proj-kpis">
+          <div><div class="kpi-v">100%</div><div class="kpi-l">COMPLIANT</div></div>
+          <div><div class="kpi-v">ISO</div><div class="kpi-l">CERTIFIED</div></div>
+        </div>
+        <div class="proj-stack"><span class="p-tag">AWS S3</span><span class="p-tag">IAM Policies</span><span class="p-tag">Encryption</span><span class="p-tag">Python</span><span class="p-tag">PCI DSS</span><span class="p-tag">VPC</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">03</div>
+        <div class="proj-badge"><div class="pbdot c"></div>OBSERVABILITY STACK</div>
+        <h3 class="proj-title">Infrastructure Monitoring Platform</h3>
+        <p class="proj-desc">Full real-time observability using Prometheus and Grafana for EC2 and database performance. Custom alerting to detect anomalies before they become incidents. Zero SLA breaches during tenure.</p>
+        <div class="proj-stack"><span class="p-tag">Prometheus</span><span class="p-tag">Grafana</span><span class="p-tag">CloudWatch</span><span class="p-tag">EC2</span><span class="p-tag">RDS</span><span class="p-tag">Custom Alerting</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-num">04</div>
+        <div class="proj-badge"><div class="pbdot c"></div>INFRASTRUCTURE AS CODE</div>
+        <h3 class="proj-title">AWS Infrastructure Automation Suite</h3>
+        <p class="proj-desc">Automated full AWS environment provisioning with Terraform and CloudFormation. Cut setup time by 50%. Includes VPC, IAM least-privilege, security groups, backup automation and DR runbooks.</p>
+        <div class="proj-kpis"><div><div class="kpi-v">50%</div><div class="kpi-l">FASTER SETUP</div></div></div>
+        <div class="proj-stack"><span class="p-tag">Terraform</span><span class="p-tag">CloudFormation</span><span class="p-tag">VPC</span><span class="p-tag">IAM</span><span class="p-tag">Boto3</span><span class="p-tag">Backup Automation</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="arch-wrap fi">
+    <div class="arch-lbl">// VMS ARCHITECTURE · AWS PRODUCTION ENVIRONMENT</div>
+    <div class="arch-flow">
+      <div class="arch-col"><div class="arch-cl">CLIENT</div><div class="arch-box ac">Web Portal</div><div class="arch-box ac">Mobile</div></div>
+      <div class="arch-col"><div class="arch-cl">COMPUTE</div><div class="arch-box ag">ECS Fargate</div><div class="arch-box ag">EC2</div></div>
+      <div class="arch-col"><div class="arch-cl">MESSAGING</div><div class="arch-box ap">AWS SNS</div><div class="arch-box ap">SQS</div></div>
+      <div class="arch-col"><div class="arch-cl">STORAGE</div><div class="arch-box ao">S3 Buckets</div><div class="arch-box ao">RDS</div></div>
+      <div class="arch-col"><div class="arch-cl">OBSERVABILITY</div><div class="arch-box ac">Prometheus</div><div class="arch-box ac">Grafana</div></div>
+    </div>
+    <div class="arch-bgs">
+      <div class="arch-bg"><em>✓</em>IAM Least Privilege</div>
+      <div class="arch-bg"><em>✓</em>PCI DSS Compliant</div>
+      <div class="arch-bg"><em>✓</em>ISO 27001 Aligned</div>
+      <div class="arch-bg"><em>✓</em>DR Strategy Implemented</div>
+      <div class="arch-bg"><em>✓</em>Terraform Provisioned</div>
+      <div class="arch-bg"><em>✓</em>Backup Automated</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CYBER·AI TAB ═══════════════════ -->
+<div class="tab-content" id="tab-cybersec">
+  <div class="cyb-section">
+    <div class="s-label fi">// RESEARCH FRONTIER</div>
+    <h2 class="s-h fi">Cybersecurity<br/><em>Meets AI</em></h2>
+    <div class="cyb-grid">
+      <div class="fi">
+        <p class="about-p">My MSc research sits at the intersection of two of the most critical fields in modern technology — <strong>Cybersecurity</strong> and <strong>Artificial Intelligence</strong>.</p>
+        <p class="about-p">My goal is to explore how <strong>AI-powered threat detection, anomaly identification, and automated incident response</strong> can make infrastructure inherently more secure — not just at the perimeter, but from within every layer of the stack.</p>
+        <div class="research-box fi">
+          <p><strong>Research Direction:</strong> Investigating machine learning models for real-time detection of anomalous infrastructure behaviour in cloud environments — building on hands-on experience with Prometheus, Grafana, and AWS CloudWatch to design AI-augmented monitoring systems that reduce mean time to detect (MTTD) and respond (MTTR) to security incidents.</p>
+        </div>
+      </div>
+      <div class="fi d2" style="display:flex;flex-direction:column;gap:18px;">
+        <div class="cyb-card">
+          <div class="cyb-ico">🧠</div>
+          <div class="cyb-title">AI-Powered Threat Detection</div>
+          <div class="cyb-desc">Exploring ML models that detect unusual infrastructure behaviour patterns before they escalate — moving from reactive to predictive security posture.</div>
+          <div class="cyb-tags"><span class="cyb-tag">Machine Learning</span><span class="cyb-tag">Anomaly Detection</span><span class="cyb-tag">MTTD Reduction</span></div>
+        </div>
+        <div class="cyb-card">
+          <div class="cyb-ico">🔐</div>
+          <div class="cyb-title">DevSecOps — Security by Design</div>
+          <div class="cyb-desc">Embedding security into every stage of the CI/CD pipeline as a continuous, automated process that scales with the infrastructure.</div>
+          <div class="cyb-tags"><span class="cyb-tag">SAST/DAST</span><span class="cyb-tag">CI/CD Security</span><span class="cyb-tag">IaC Scanning</span></div>
+        </div>
+        <div class="cyb-card">
+          <div class="cyb-ico">⚡</div>
+          <div class="cyb-title">AI-Augmented Incident Response</div>
+          <div class="cyb-desc">Using AI to automate the first critical minutes of incident response — faster triage, intelligent runbook execution, reduced human error under pressure.</div>
+          <div class="cyb-tags"><span class="cyb-tag">Automation</span><span class="cyb-tag">AI Triage</span><span class="cyb-tag">Runbooks</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ EXPERIENCE TAB ═══════════════════ -->
+<div class="tab-content" id="tab-experience">
+  <section class="section">
+    <div class="s-label fi">// WORK HISTORY</div>
+    <h2 class="s-h fi">Career <em>Timeline</em></h2>
+    <div class="tl-wrap fi">
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-dt">AUG 2025<br/>APR 2026</div></div>
+        <div class="tl-dot-w"><div class="tl-dot tdg"></div></div>
+        <div>
+          <div class="tl-co">FRINGE INFRASTRUCTURE LTD · LAGOS, NIGERIA</div>
+          <div class="tl-role">DevOps & Site Reliability Engineer</div>
+          <div class="tl-desc">Built and deployed VMS and Secure File Share from concept to production. Led incident response, designed DR strategies, built observability stacks, maintained ISO/PCI DSS compliance. Reduced processing time by 90%, achieved 98% adoption.</div>
+          <div class="tl-tags"><span class="tl-tag">AWS</span><span class="tl-tag">Terraform</span><span class="tl-tag">Python</span><span class="tl-tag">Grafana</span><span class="tl-tag">ISO 27001</span><span class="tl-tag">PCI DSS</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-dt">DEC 2022<br/>JUL 2025</div></div>
+        <div class="tl-dot-w"><div class="tl-dot tdc"></div></div>
+        <div>
+          <div class="tl-co">CLOUD EXCHANGE DATA CENTRE · LAGOS, NIGERIA</div>
+          <div class="tl-role">DevOps Engineer (Started as NYSC Corps Member)</div>
+          <div class="tl-desc">Joined as a Youth Corper and grew into a full DevOps Engineer over 3 years. Managed AWS infrastructure, built CI/CD pipelines, containerised with Docker/Kubernetes, led ISO 27001 & 22301 audits, led team of 6 engineers. Terraform reduced provisioning by 50%.</div>
+          <div class="tl-tags"><span class="tl-tag">Docker</span><span class="tl-tag">Kubernetes</span><span class="tl-tag">Jenkins</span><span class="tl-tag">GitHub Actions</span><span class="tl-tag">ISO 27001</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-dt">FEB 2022<br/>OCT 2022</div></div>
+        <div class="tl-dot-w"><div class="tl-dot tdp"></div></div>
+        <div>
+          <div class="tl-co">COILS TECH · UNITED STATES (REMOTE)</div>
+          <div class="tl-role">DevOps Engineer (Volunteer)</div>
+          <div class="tl-desc">Managed enterprise AWS infrastructure, conducted cloud security audits, supported on-prem to cloud migrations, and automated operational tasks with Python and Bash.</div>
+          <div class="tl-tags"><span class="tl-tag">AWS</span><span class="tl-tag">IAM</span><span class="tl-tag">Python</span><span class="tl-tag">Bash</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-dt">JUN 2020<br/>OCT 2022</div></div>
+        <div class="tl-dot-w"><div class="tl-dot tdo"></div></div>
+        <div>
+          <div class="tl-co">OLABISI ONABANJO UNIVERSITY ICT · NIGERIA</div>
+          <div class="tl-role">Network Engineer Intern</div>
+          <div class="tl-desc">Designed and maintained campus-wide network infrastructure for thousands of users. Managed routers, switches, wireless access points and monitored base stations for uninterrupted connectivity.</div>
+          <div class="tl-tags"><span class="tl-tag">Networking</span><span class="tl-tag">Routers</span><span class="tl-tag">Switches</span><span class="tl-tag">IP Management</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ CERTIFICATIONS TAB ═══════════════════ -->
+<div class="tab-content" id="tab-certifications">
+  <section class="section">
+    <div class="s-label fi">// CREDENTIALS</div>
+    <h2 class="s-h fi">Certifications &<br/><em>Education</em></h2>
+    <div class="certs-grid fi">
+      <div class="cert-card"><div class="cert-ico">🔐</div><div><div class="cert-nm">ISO/IEC 27001:2022 Information Security Associate</div><div class="cert-org">SkillFront</div><div class="cert-yr">2025</div></div></div>
+      <div class="cert-card"><div class="cert-ico">🏢</div><div><div class="cert-nm">Data Centre Certified Associate (DCCA)</div><div class="cert-org">Schneider Electric University</div><div class="cert-yr">2023</div></div></div>
+      <div class="cert-card"><div class="cert-ico">⚙️</div><div><div class="cert-nm">Graduate Member — GMNSE</div><div class="cert-org">Nigerian Society of Engineers</div><div class="cert-yr">2022</div></div></div>
+      <div class="cert-card"><div class="cert-ico">🛡️</div><div><div class="cert-nm">Network Security Expert NSE 1 & NSE 2</div><div class="cert-org">Fortinet</div><div class="cert-yr">2020</div></div></div>
+      <div class="cert-card"><div class="cert-ico">🌐</div><div><div class="cert-nm">Certified Network Security Specialist (CNSS)</div><div class="cert-org">ICSI — International Cybersecurity Institute</div><div class="cert-yr">2020</div></div></div>
+
+    </div>
+    <!-- EDUCATION -->
+    <div class="s-label fi" style="margin-top:60px;">// EDUCATION</div>
+    <div class="certs-grid fi" style="margin-top:20px;">
+      <div class="cert-card" style="border-color:rgba(255,215,0,0.1);">
+        <div class="cert-ico">🎓</div>
+        <div>
+          <div class="cert-nm">MSc Cybersecurity</div>
+          <div class="cert-org">Teesside University, Middlesbrough, UK</div>
+          <div class="cert-yr" style="color:var(--gold);">May 2026 – Expected 2028</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ico">📚</div>
+        <div>
+          <div class="cert-nm">B.Eng Electrical/Electronics Engineering</div>
+          <div class="cert-org">Olabisi Onabanjo University, Nigeria</div>
+          <div class="cert-yr">November 2016 – January 2022</div>
+        </div>
+      </div>
+    </div>
+    <!-- CURRENTLY LEARNING -->
+    <div class="s-label fi" style="margin-top:55px;">// CURRENTLY LEARNING</div>
+    <div class="learn-grid fi" style="margin-top:16px;">
+      <div class="learn-card"><div class="learn-bar" style="width:70%;background:linear-gradient(90deg,var(--cyan),var(--green));"></div><div class="learn-ico">🔐</div><div class="learn-nm">MSc Cybersecurity</div><div class="learn-pct">In Progress · <em>70%</em></div></div>
+      <div class="learn-card"><div class="learn-bar" style="width:45%;background:linear-gradient(90deg,var(--gold),#ff6b35);"></div><div class="learn-ico">☁️</div><div class="learn-nm">AWS Solutions Architect</div><div class="learn-pct">Studying · <em>45%</em></div></div>
+      <div class="learn-card"><div class="learn-bar" style="width:30%;background:linear-gradient(90deg,var(--purple),var(--cyan));"></div><div class="learn-ico">⚓</div><div class="learn-nm">Kubernetes CKA</div><div class="learn-pct">Studying · <em>30%</em></div></div>
+      <div class="learn-card"><div class="learn-bar" style="width:20%;background:linear-gradient(90deg,var(--pink),var(--purple));"></div><div class="learn-ico">🧠</div><div class="learn-nm">AI + Security Research</div><div class="learn-pct">Exploring · <em>20%</em></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ LOGS TAB ═══════════════════ -->
+<div class="tab-content" id="tab-logs">
+  <section class="section">
+    <div class="s-label fi">// FIELD NOTES</div>
+    <h2 class="s-h fi">LOGS <em>& Posts</em></h2>
+    <div class="logs-grid fi">
+      <!-- LOG 1 -->
+      <div class="log-card">
+        <div class="log-img-placeholder">📸 ADD COVER IMAGE HERE</div>
+        <div class="log-body">
+          <div class="log-meta">
+            <span class="log-date">APR 2025</span>
+            <span class="log-tag">#DevOps</span>
+            <span class="log-tag">#Career</span>
+          </div>
+          <div class="log-title">From Corps Member to Data Centre Engineer 🖥️</div>
+          <div class="log-excerpt">In November 2021, I walked through the doors of Cloud Exchange as a Youth Corper — nervous, curious, and stepping into the Data Centre world for the very first time. What followed was a journey I will always be grateful for...</div>
+          <a class="log-link" href="https://linkedin.com/in/kehinde-oyekunle-081045227" target="_blank">[ READ ON LINKEDIN → ]</a>
+        </div>
+      </div>
+      <!-- LOG 2 -->
+      <div class="log-card">
+        <div class="log-img-placeholder">📸 ADD COVER IMAGE HERE</div>
+        <div class="log-body">
+          <div class="log-meta">
+            <span class="log-date">APR 2025</span>
+            <span class="log-tag">#DevOps</span>
+            <span class="log-tag">#Projects</span>
+            <span class="log-tag">#AWS</span>
+          </div>
+          <div class="log-title">I Built This From Scratch — And It Changed How I Think About Infrastructure 🛠️</div>
+          <div class="log-excerpt">As a DevOps Engineer, one of the most defining moments of my career wasn't a certification or a course. It was being handed a problem and told — "figure it out." The problem? Our visitor management process was entirely manual. Paper-based. Slow. And from a compliance standpoint — a risk...</div>
+          <a class="log-link" href="https://linkedin.com/in/kehinde-oyekunle-081045227" target="_blank">[ READ ON LINKEDIN → ]</a>
+        </div>
+      </div>
+      <!-- ADD MORE PLACEHOLDER -->
+      <div class="log-card">
+        <div class="log-add">
+          <div class="log-add-ico">+</div>
+          <div class="log-add-txt">YOUR NEXT POST<br/>GOES HERE<br/><br/>Share your next LinkedIn post<br/>and I'll add it to LOGS</div>
+        </div>
+      </div>
+      <div class="log-card">
+        <div class="log-add">
+          <div class="log-add-ico">+</div>
+          <div class="log-add-txt">COMING SOON<br/><br/>Cybersecurity + AI<br/>research updates<br/>will appear here</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ CONTACT TAB ═══════════════════ -->
+<div class="tab-content" id="tab-contact">
+  <section class="section">
+    <div class="s-label fi">// GET IN TOUCH</div>
+    <h2 class="s-h fi">Let's Build <em>Together</em></h2>
+    <div class="contact-wrap">
+      <div class="fi">
+        <div class="c-items">
+          <div class="c-item"><div class="c-ico">📧</div><div><div class="c-lbl">EMAIL</div><div class="c-val"><a href="mailto:oyekunlekehinde23@gmail.com">oyekunlekehinde23@gmail.com</a></div></div></div>
+          <div class="c-item"><div class="c-ico">💼</div><div><div class="c-lbl">LINKEDIN</div><div class="c-val"><a href="https://linkedin.com/in/kehinde-oyekunle-081045227" target="_blank">linkedin.com/in/kehinde-oyekunle</a></div></div></div>
+          <div class="c-item"><div class="c-ico">🌐</div><div><div class="c-lbl">WEBSITE</div><div class="c-val"><a href="https://buildwithkayai.com" target="_blank">buildwithkayai.com</a></div></div></div>
+          <div class="c-item"><div class="c-ico">📍</div><div><div class="c-lbl">LOCATION</div><div class="c-val">Middlesbrough, UK · Open to Remote Worldwide</div></div></div>
+          <div class="c-item"><div class="c-ico">⏰</div><div><div class="c-lbl">RESPONSE TIME</div><div class="c-val">Usually within 24 hours</div></div></div>
+        </div>
+      </div>
+      <div class="fi d2">
+        <div class="open-to">
+          <div class="ot-lbl">// CURRENTLY OPEN TO</div>
+          <div class="ot-item"><span class="ot-chk">✓</span>Remote DevOps / SRE roles worldwide</div>
+          <div class="ot-item"><span class="ot-chk">✓</span>Cloud Infrastructure contracts (Outside IR35)</div>
+          <div class="ot-item"><span class="ot-chk">✓</span>US / EU / Global contractor positions</div>
+          <div class="ot-item"><span class="ot-chk">✓</span>Part-time freelance DevOps projects</div>
+          <div class="ot-item"><span class="ot-chk">✓</span>Cybersecurity & AI research collaborations</div>
+          <button class="dl-btn" onclick="downloadCV()"><span>↓ DOWNLOAD MY CV</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER (always visible) -->
+<footer>
+  <div class="f-left"><strong>buildwithkayai.com</strong> · Designed & Built by K. Oyekunle · DevOps · SRE · Cybersecurity · UK · 2026</div>
+  <div class="f-right">Powered by Claude AI ⚡</div>
+</footer>
+
+<!-- FIXED BOTTOM MARQUEE -->
+<div class="marquee-fixed">
+  <div class="marquee-track">
+    <div class="mq-item"><span>AWS</span>Cloud Infrastructure</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Terraform</span>Infrastructure as Code</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Docker · Kubernetes</span>Container Orchestration</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>ISO 27001</span>Security Compliance</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Prometheus · Grafana</span>Observability</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>CI/CD Pipelines</span>Continuous Delivery</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>PCI DSS</span>Regulatory Compliance</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Cybersecurity + AI</span>MSc Research</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>AWS</span>Cloud Infrastructure</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Terraform</span>Infrastructure as Code</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Docker · Kubernetes</span>Container Orchestration</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>ISO 27001</span>Security Compliance</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Prometheus · Grafana</span>Observability</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>CI/CD Pipelines</span>Continuous Delivery</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>PCI DSS</span>Regulatory Compliance</div>
+    <div class="mq-item"><span>◆</span></div>
+    <div class="mq-item"><span>Cybersecurity + AI</span>MSc Research</div>
+    <div class="mq-item"><span>◆</span></div>
+  </div>
+</div>
+
+<!-- AI COPILOT -->
+<div class="ai-fab">
+  <button class="ai-circle-btn" onclick="toggleAI()">AI</button>
+</div>
+<div class="ai-overlay" id="aiOverlay" onclick="handleOverlayClick(event)">
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-br1"></div>
+    <div class="ai-br2"></div>
+    <div class="ai-panel-hdr">
+      <div>
+        <div class="ai-hdr-title">ASK THE ENGINEER</div>
+        <div class="ai-hdr-sub"><span class="ai-sdot"></span>AI CO-PILOT ONLINE</div>
+      </div>
+      <button class="ai-close" onclick="toggleAI()">✕</button>
+    </div>
+    <div class="ai-msgs" id="aiMsgs">
+      <div class="ai-prompt-card">
+        <div class="ai-prompt-lbl">PROMPT IDEAS</div>
+        <div class="ai-prompt-txt">Ask about Kehinde's projects, AWS experience, career journey, availability, or what makes him stand out as an engineer.</div>
+      </div>
+    </div>
+    <div class="aw-qq" id="awQQ">
+      <button class="aw-q" onclick="sendQ('What projects has Kehinde built?')">Projects?</button>
+      <button class="aw-q" onclick="sendQ('What is his AWS experience?')">AWS Skills?</button>
+      <button class="aw-q" onclick="sendQ('Is he available for remote work?')">Available?</button>
+      <button class="aw-q" onclick="sendQ('What makes him stand out?')">Why hire him?</button>
+    </div>
+    <div class="ai-inp-row">
+      <span class="ai-gt">&gt;</span>
+      <input class="aw-inp" id="awInp" placeholder="Ask anything..." onkeypress="if(event.key==='Enter')sendMsg()"/>
+      <button class="ai-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const isMobile='ontouchstart' in window||navigator.maxTouchPoints>0;
+const cur=document.getElementById('cursor');
+if(isMobile){cur.style.display='none';document.body.style.cursor='auto';}
+else{document.body.style.cursor='none';document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});document.addEventListener('mousedown',()=>cur.classList.add('click'));document.addEventListener('mouseup',()=>cur.classList.remove('click'));}
+
+// SECURITY CANVAS — dense matrix rain in site colours
+const canvas=document.getElementById('secCanvas'),ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const fontSize=16;
+const cols=Math.floor(window.innerWidth/fontSize);
+const drops=Array.from({length:cols},()=>Math.floor(Math.random()*-50));
+const chars='01アイウエオカキクケコ01サシスセソタチツABCDEF0123456789<>{}[]|\\/?!#$%01';
+// Each column gets a random speed and brightness for variety
+const speeds=Array.from({length:cols},()=>0.3+Math.random()*0.5);
+const bright=Array.from({length:cols},()=>Math.random());
+let frame=0;
+(function draw(){
+  frame++;
+  // Fade trail — dark overlay keeps site bg visible
+  ctx.fillStyle='rgba(2,4,10,0.12)';
+  ctx.fillRect(0,0,W,H);
+  ctx.font=fontSize+'px JetBrains Mono,monospace';
+  drops.forEach((y,i)=>{
+    const ch=chars[Math.floor(Math.random()*chars.length)];
+    const isHead=Math.random()>0.92;
+    if(isHead){
+      // Bright head character — white-ish cyan
+      ctx.fillStyle='rgba(200,255,255,0.9)';
+    } else {
+      // Body — vary opacity for depth effect
+      const alpha=bright[i]*(0.15+Math.random()*0.3);
+      ctx.fillStyle='rgba(0,245,255,'+alpha+')';
+    }
+    ctx.fillText(ch,i*fontSize,y*fontSize);
+    if(y*fontSize>H&&Math.random()>0.975)drops[i]=0;
+    drops[i]+=speeds[i];
+  });
+  // Subtle scan line
+  const scanY=(frame*0.4)%H;
+  const g=ctx.createLinearGradient(0,scanY-30,0,scanY+30);
+  g.addColorStop(0,'rgba(0,245,255,0)');
+  g.addColorStop(0.5,'rgba(0,245,255,0.02)');
+  g.addColorStop(1,'rgba(0,245,255,0)');
+  ctx.fillStyle=g;
+  ctx.fillRect(0,scanY-30,W,60);
+  requestAnimationFrame(draw);
+})();
+
+// TAB SYSTEM
+function switchTab(id){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab,.mobile-menu-tab').forEach(t=>t.classList.remove('active'));
+  const tab=document.getElementById('tab-'+id);
+  if(!tab)return;
+  tab.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Highlight active nav tab
+  document.querySelectorAll('.nav-tab').forEach(t=>{if(t.textContent.toLowerCase().replace(/[^a-z]/g,'')===id.replace(/[^a-z]/g,''))t.classList.add('active');});
+  // IMMEDIATELY show all fade-in elements — no scroll needed
+  tab.querySelectorAll('.fi').forEach(el=>el.classList.add('vis'));
+  // Reset and recount counters
+  tab.querySelectorAll('.counter').forEach(el=>{el.textContent='0';countUp(el);});
+}
+
+// MOBILE MENU
+function openMobileMenu(){document.getElementById('mobileMenu').classList.add('open');}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');}
+
+// COUNTER
+function countUp(el){const t=+el.dataset.target;if(!t)return;let c=0;const step=t/60;const tm=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.floor(c);if(c>=t)clearInterval(tm);},18);}
+setTimeout(()=>document.querySelectorAll('.hs-n[data-target]').forEach(countUp),600);
+// Immediately show home tab fi elements
+document.querySelectorAll('#tab-home .fi').forEach(el=>el.classList.add('vis'));
+// INTERSECTION OBSERVER for scrollable content
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('.counter').forEach(countUp);}});},{threshold:0.08});
+document.querySelectorAll('.fi:not(#tab-home .fi)').forEach(el=>obs.observe(el));
+
+// AI COPILOT
+let aiOpen=false,history=[];
+function toggleAI(){aiOpen=!aiOpen;document.getElementById('aiOverlay').classList.toggle('open',aiOpen);if(aiOpen)document.getElementById('awInp').focus();}
+function handleOverlayClick(e){if(e.target===document.getElementById('aiOverlay'))toggleAI();}
+
+const SYS=`You are an AI Co-Pilot assistant for Kehinde Afolarin Oyekunle, a DevOps & SRE Engineer. Be concise (max 130 words), professional, enthusiastic. Represent him positively.
+
+PROFILE: Kehinde Afolarin Oyekunle · Middlesbrough UK · open to remote worldwide · oyekunlekehinde23@gmail.com · linkedin.com/in/kehinde-oyekunle-081045227
+EDUCATION: MSc Cybersecurity Teesside University May 2026-2028 (AI research focus) · B.Eng Electrical/Electronics OOU Nigeria 2016-2022
+EXPERIENCE:
+1. Fringe Infrastructure Ltd DevOps & SRE Aug2025-Apr2026: VMS 90% faster 98% adoption 99% efficiency, Secure File Share, AWS ECS Fargate EC2 S3 SNS IAM VPC CloudFormation Terraform, Python Boto3, Grafana Prometheus dashboards, DR strategy, ISO27001 PCI DSS
+2. Cloud Exchange DevOps Engineer Dec2022-Jul2025: Started as NYSC Youth Corper, Docker Kubernetes EKS Jenkins GitHub Actions, led 6 engineers, ISO27001 22301 audits, Terraform 50% faster
+3. Coils Tech USA Volunteer Feb-Oct2022: AWS security audits Python Bash
+SKILLS: Terraform Jenkins GitHub Actions Ansible Docker Kubernetes CloudFormation AWS Azure Prometheus Grafana CloudWatch Python Boto3 Bash ISO27001 PCI DSS SAST/DAST
+OPEN TO: remote DevOps/SRE, cloud contracts, US/EU/global contractor, part-time freelance, cybersecurity AI collaborations`;
+
+async function sendMsg(){const inp=document.getElementById('awInp'),m=inp.value.trim();if(!m)return;inp.value='';addMsg(m,'user');const t=addTyping();history.push({role:'user',content:m});document.getElementById('awQQ').style.display='none';
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:history})});const d=await r.json();const txt=d.content[0].text;t.remove();addMsg(txt,'ai');history.push({role:'assistant',content:txt});}catch(e){t.remove();addMsg('Connection error — please try again!','ai');}}
+
+function sendQ(q){document.getElementById('awInp').value=q;sendMsg();}
+function addMsg(txt,type){const box=document.getElementById('aiMsgs'),d=document.createElement('div');d.className='aw-msg '+type;d.innerHTML='<div class="aw-av '+(type==='ai'?'ai':'u')+'">'+( type==='ai'?'AI':'K')+'</div><div class="aw-bubble '+type+'">'+txt+'</div>';box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
+function addTyping(){const box=document.getElementById('aiMsgs'),d=document.createElement('div');d.className='aw-msg';d.innerHTML='<div class="aw-av ai">AI</div><div class="aw-bubble ai"><div class="typ"><span></span><span></span><span></span></div></div>';box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
+function downloadCV(){alert('Place your CV PDF in the same folder as index.html and link it here!');}
+</script>
+</body>
+</html>
