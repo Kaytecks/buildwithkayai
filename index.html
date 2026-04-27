@@ -813,21 +813,21 @@ footer{position:relative;z-index:2;padding:40px 60px;border-top:1px solid var(--
     <div class="logs-grid fi">
       <!-- LOG 1 -->
       <div class="log-card">
-        <div class="log-img-placeholder">📸 ADD COVER IMAGE HERE</div>
+        <img class="log-img" src="log2.jpeg" alt="Post cover"/>
         <div class="log-body">
           <div class="log-meta">
             <span class="log-date">APR 2025</span>
             <span class="log-tag">#DevOps</span>
             <span class="log-tag">#Career</span>
           </div>
-          <div class="log-title">From Corps Member to Data Centre Engineer 🖥️</div>
+          <div class="log-title">From Corp Member to Data Centre Engineer 🖥️</div>
           <div class="log-excerpt">In November 2021, I walked through the doors of Cloud Exchange as a Youth Corper — nervous, curious, and stepping into the Data Centre world for the very first time. What followed was a journey I will always be grateful for...</div>
           <a class="log-link" href="https://linkedin.com/in/kehinde-oyekunle-081045227" target="_blank">[ READ ON LINKEDIN → ]</a>
         </div>
       </div>
       <!-- LOG 2 -->
       <div class="log-card">
-        <div class="log-img-placeholder">📸 ADD COVER IMAGE HERE</div>
+        <img class="log-img" src="log3.jpeg" alt="Post cover"/>
         <div class="log-body">
           <div class="log-meta">
             <span class="log-date">APR 2025</span>
@@ -844,7 +844,7 @@ footer{position:relative;z-index:2;padding:40px 60px;border-top:1px solid var(--
       <div class="log-card">
         <div class="log-add">
           <div class="log-add-ico">+</div>
-          <div class="log-add-txt">YOUR NEXT POST<br/>GOES HERE<br/><br/>Share your next LinkedIn post<br/>and I'll add it to LOGS</div>
+          <div class="log-add-txt"> NEXT POST<br/>COMING SOON<br/><br/> LinkedIn post<br/> Update </div>
         </div>
       </div>
       <div class="log-card">
@@ -1068,7 +1068,22 @@ try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',h
 function sendQ(q){document.getElementById('awInp').value=q;sendMsg();}
 function addMsg(txt,type){const box=document.getElementById('aiMsgs'),d=document.createElement('div');d.className='aw-msg '+type;d.innerHTML='<div class="aw-av '+(type==='ai'?'ai':'u')+'">'+( type==='ai'?'AI':'K')+'</div><div class="aw-bubble '+type+'">'+txt+'</div>';box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
 function addTyping(){const box=document.getElementById('aiMsgs'),d=document.createElement('div');d.className='aw-msg';d.innerHTML='<div class="aw-av ai">AI</div><div class="aw-bubble ai"><div class="typ"><span></span><span></span><span></span></div></div>';box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
-function downloadCV(){alert('Place your CV PDF in the same folder as index.html and link it here!');}
+function downloadCV(){
+  fetch('Kehinde_Oyekunle_CV.pdf',{method:'HEAD'})
+    .then(res=>{
+      if(res.ok){
+        const a=document.createElement('a');
+        a.href='Kehinde_Oyekunle_CV.pdf';
+        a.download='Kehinde_Oyekunle_CV.pdf';
+        a.click();
+      } else {
+        window.location.href='mailto:oyekunlekehinde23@gmail.com?subject=CV Request — Kehinde Oyekunle&body=Hi Kehinde, I visited your portfolio buildwithkayai.com and would like to request a copy of your CV.';
+      }
+    })
+    .catch(()=>{
+      window.location.href='mailto:oyekunlekehinde23@gmail.com?subject=CV Request — Kehinde Oyekunle&body=Hi Kehinde, I visited your portfolio buildwithkayai.com and would like to request a copy of your CV.';
+    });
+}
 </script>
 </body>
 </html>
